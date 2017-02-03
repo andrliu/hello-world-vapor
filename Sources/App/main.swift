@@ -97,7 +97,7 @@ drop.get("model") { request in
 }
 
 drop.get("test") { request in
-    var acronym = Acronym(short: "LOL", long: "Laugh Out Loud")
+    var acronym = Acronym(short: "BRB", long: "Be Right Back")
     try acronym.save()
     return try JSON(node: Acronym.all().makeNode())
 }
@@ -145,5 +145,9 @@ drop.get("delete-afks") { request in
     try query.delete()
     return try JSON(node: Acronym.all().makeNode())
 }
+
+//MARK:
+//MARK: Deploying to Heroku with PostgreSQL
+
 
 drop.run()
