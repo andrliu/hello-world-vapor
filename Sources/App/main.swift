@@ -160,4 +160,9 @@ drop.get("delete-afks") { request in
 let basic = BasicController()
 basic.addRoutes(drop: drop)
 
+//MARK:
+//MARK: RESTful Controllers
+let acronyms = AcronymsController()
+drop.resource("acronyms", acronyms)
+
 drop.run()
