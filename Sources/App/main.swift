@@ -80,21 +80,22 @@ drop.get("template-ifelse") { request in
 
 //MARK:
 //MARK: Configuring a Database
-drop.get("version") { request in
-    if let db = drop.database?.driver as? PostgreSQLDriver {
-        let version = try db.raw("SELECT version()")
-        return try JSON(node: version)
-    } else {
-        return "No db connection"
-    }
-}
+
+//drop.get("version") { request in
+//    if let db = drop.database?.driver as? PostgreSQLDriver {
+//        let version = try db.raw("SELECT version()")
+//        return try JSON(node: version)
+//    } else {
+//        return "No db connection"
+//    }
+//}
 
 //MARK:
 //MARK: Persisting Models
-drop.get("model") { request in
-    let acronym = Acronym(short: "AFK", long: "Away From Keyboard")
-    return try acronym.makeJSON()
-}
+//drop.get("model") { request in
+//    let acronym = Acronym(short: "AFK", long: "Away From Keyboard")
+//    return try acronym.makeJSON()
+//}
 
 drop.get("test") { request in
     var acronym = Acronym(short: "BRB", long: "Be Right Back")
@@ -148,6 +149,15 @@ drop.get("delete-afks") { request in
 
 //MARK:
 //MARK: Deploying to Heroku with PostgreSQL
+// $heroku addons:create heroku-postgresql:hobby-dev
 
+// $vi Procfile
+// $web: App --env=production --workdir="./"
+// $web: App --env=production --workdir=./ --config:servers.default.port=$PORT —config:postgresql.url=$DATABASE_URL
+
+//MARK:
+//MARK: Basic Controllers
+let basic = BasicController()
+basic.addRoutes(drop: drop)
 
 drop.run()
